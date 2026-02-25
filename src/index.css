@@ -4,4 +4,11 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Poppins", sans-serif;
+  
+  --color-paper: #FAF9F6;
+  --color-ink: #121212;
+  --color-accent: #6B705C;
+  --color-accent-dark: #4A4E3F;
+  --color-beige: #EAE7DC;
+  --color-beige-dark: #D8D3C3;
 }
