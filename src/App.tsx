@@ -17,7 +17,8 @@ const PROPERTIES = [
     reviews: 124,
     image: "/house1.png",
     category: "Cabins",
-    isSuperhost: true
+    isSuperhost: true,
+    isFeatured: true
   },
   {
     id: 2,
@@ -73,6 +74,7 @@ interface Property {
   image: string;
   category: string;
   isSuperhost: boolean;
+  isFeatured?: boolean;
 }
 
 function PropertyCard({ property }: any) {
@@ -97,6 +99,13 @@ function PropertyCard({ property }: any) {
         {property.isSuperhost && (
           <div className="absolute top-4 left-4 rounded-md bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-900 shadow-sm">
             Superhost
+          </div>
+        )}
+        {property.isFeatured && (
+          <div className="absolute top-4 left-4 z-10 -translate-x-1 -translate-y-1">
+            <div className="bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-br-xl shadow-lg border-b border-r border-indigo-700">
+              Featured
+            </div>
           </div>
         )}
         <button 
@@ -129,6 +138,37 @@ function PropertyCard({ property }: any) {
         <div className="mt-2 flex items-baseline gap-1">
           <span className="text-lg font-bold text-zinc-900">${property.price}</span>
           <span className="text-sm text-zinc-500">/ night</span>
+        </div>
+
+        {/* Booking Section */}
+        <div className="mt-4 border-t border-zinc-100 pt-4">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-bold uppercase text-zinc-400">Check-in</label>
+              <input 
+                type="date" 
+                className="rounded-lg border border-zinc-200 p-1.5 text-xs focus:border-indigo-500 focus:outline-none"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-bold uppercase text-zinc-400">Check-out</label>
+              <input 
+                type="date" 
+                className="rounded-lg border border-zinc-200 p-1.5 text-xs focus:border-indigo-500 focus:outline-none"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              alert("Booking request sent!");
+            }}
+            className="mt-3 w-full rounded-xl bg-zinc-900 py-2.5 text-sm font-bold text-white transition-all hover:bg-zinc-800 active:scale-95"
+          >
+            Reserve
+          </button>
         </div>
       </div>
     </motion.div>
