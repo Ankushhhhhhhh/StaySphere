@@ -102,6 +102,12 @@ const LOCATIONS = [
   { name: "Dubai", image: "https://picsum.photos/seed/dubai/800/800" }
 ];
 
+const USER = {
+  name: "Guest User",
+  email: "guest@staysphere.com",
+  avatar: "https://picsum.photos/seed/guestuser/100/100"
+};
+
 function PropertyCard({ property, onClick, darkMode }: any) {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -402,9 +408,16 @@ export default function App() {
             <button className={`hidden text-sm font-medium transition-colors lg:block ${darkMode ? 'text-zinc-400 hover:text-white' : 'text-zinc-600 hover:text-indigo-600'}`}>
               Become a host
             </button>
-            <div className={`flex items-center gap-2 rounded-full border p-1 pl-3 transition-shadow cursor-pointer ${darkMode ? 'border-zinc-700 bg-zinc-800 hover:shadow-zinc-900' : 'border-zinc-200 hover:shadow-md'}`}>
-              <Menu size={18} className={darkMode ? 'text-zinc-400' : 'text-zinc-600'} />
-              <div className={`h-8 w-8 rounded-full ${darkMode ? 'bg-zinc-700' : 'bg-zinc-200'}`} />
+            <div className={`flex items-center gap-3 rounded-full border p-1 pr-3 transition-shadow cursor-pointer ${darkMode ? 'border-zinc-700 bg-zinc-800 hover:shadow-zinc-900' : 'border-zinc-200 hover:shadow-md'}`}>
+              <div className={`h-8 w-8 overflow-hidden rounded-full ${darkMode ? 'bg-zinc-700' : 'bg-zinc-200'}`}>
+                <img 
+                  src={USER.avatar} 
+                  alt={USER.name} 
+                  className="h-full w-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <span className={`text-sm font-bold ${darkMode ? 'text-white' : 'text-zinc-900'}`}>{USER.name}</span>
             </div>
           </div>
         </div>
