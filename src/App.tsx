@@ -178,7 +178,7 @@ function PropertyCard({ property, onClick, darkMode }: any) {
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <h3 className={`text-base font-bold transition-colors ${darkMode ? 'text-white' : 'text-zinc-900'}`}>{property.title}</h3>
+          <h3 className={`text-base font-display font-bold transition-colors ${darkMode ? 'text-white' : 'text-zinc-900'}`}>{property.title}</h3>
           <div className="flex items-center gap-1">
             <Star size={14} className="fill-yellow-400 text-yellow-400" />
             <span className={`text-sm font-medium ${darkMode ? 'text-zinc-300' : 'text-zinc-900'}`}>{property.rating}</span>
@@ -330,7 +330,7 @@ export default function App() {
                     </div>
                   </div>
                   
-                  <h2 className={`mt-2 text-2xl font-black tracking-tight sm:text-3xl ${darkMode ? 'text-white' : 'text-zinc-900'}`}>
+                  <h2 className={`mt-2 text-3xl font-display font-black tracking-tight sm:text-4xl ${darkMode ? 'text-white' : 'text-zinc-900'}`}>
                     {selectedProperty.title}
                   </h2>
                   <p className="mt-1 text-sm text-zinc-500">{selectedProperty.location}</p>
@@ -424,7 +424,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 pb-24 sm:pt-32 sm:pb-32">
+      <section className="relative overflow-hidden pt-32 pb-32 sm:pt-48 sm:pb-48">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -432,10 +432,10 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className={`text-5xl font-black tracking-tight sm:text-7xl ${darkMode ? 'text-white' : 'text-zinc-900'}`}>
+            <h1 className={`text-6xl font-display font-black tracking-tight sm:text-8xl ${darkMode ? 'text-white' : 'text-zinc-900'}`}>
               Find Your Perfect Stay Anywhere
             </h1>
-            <p className={`mx-auto mt-6 max-w-2xl text-lg ${darkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+            <p className={`mx-auto mt-8 max-w-2xl text-xl leading-relaxed ${darkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
               Book unique homes, apartments, and villas at the best prices.
             </p>
           </motion.div>
@@ -501,10 +501,10 @@ export default function App() {
       </section>
 
       {/* Property Grid */}
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col gap-6">
-            <h2 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-zinc-900'}`}>Featured Stays</h2>
+            <h2 className={`text-4xl font-display font-bold tracking-tight ${darkMode ? 'text-white' : 'text-zinc-900'}`}>Featured Stays</h2>
             
             {/* Filters */}
             <div className="flex flex-wrap gap-2 p-1 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 backdrop-blur-sm">
@@ -596,8 +596,8 @@ export default function App() {
       </section>
 
       {/* Explore by Location Section */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <h2 className={`text-3xl font-bold mb-12 ${darkMode ? 'text-white' : 'text-zinc-900'}`}>Explore by Location</h2>
+      <section className="mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
+        <h2 className={`text-4xl font-display font-bold tracking-tight mb-16 ${darkMode ? 'text-white' : 'text-zinc-900'}`}>Explore by Location</h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {LOCATIONS.map((location, index) => (
             <motion.div
@@ -624,9 +624,9 @@ export default function App() {
       </section>
 
       {/* Reviews Section */}
-      <section className={`py-24 transition-colors ${darkMode ? 'bg-zinc-900/50' : 'bg-zinc-50'}`}>
+      <section className={`py-32 transition-colors ${darkMode ? 'bg-zinc-900/50' : 'bg-zinc-50'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className={`text-3xl font-bold mb-12 ${darkMode ? 'text-white' : 'text-zinc-900'}`}>What Our Guests Say</h2>
+          <h2 className={`text-4xl font-display font-bold tracking-tight mb-16 ${darkMode ? 'text-white' : 'text-zinc-900'}`}>What Our Guests Say</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {REVIEWS.map((review) => (
               <motion.div
@@ -657,8 +657,8 @@ export default function App() {
 
       {/* Recently Viewed Section */}
       {recentlyViewed.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 border-t border-zinc-100 dark:border-zinc-800 mt-12">
-          <h2 className={`text-2xl font-bold mb-8 ${darkMode ? 'text-white' : 'text-zinc-900'}`}>Recently Viewed</h2>
+        <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 border-t border-zinc-100 dark:border-zinc-800 mt-24">
+          <h2 className={`text-3xl font-display font-bold tracking-tight mb-12 ${darkMode ? 'text-white' : 'text-zinc-900'}`}>Recently Viewed</h2>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {recentlyViewed.map((property) => (
               <PropertyCard 
