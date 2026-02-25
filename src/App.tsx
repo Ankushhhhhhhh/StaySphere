@@ -49,6 +49,27 @@ const PROPERTIES = [
   }
 ];
 
+const REVIEWS = [
+  {
+    id: 1,
+    name: "Sarah Johnson",
+    rating: 5,
+    text: "The glass cabin in Iceland was absolutely magical. Waking up to the sunrise over the mountains was an experience I'll never forget."
+  },
+  {
+    id: 2,
+    name: "Michael Chen",
+    rating: 5,
+    text: "StaySphere made booking our desert getaway so easy. The Joshua Tree house was even better than the photos!"
+  },
+  {
+    id: 3,
+    name: "Elena Rodriguez",
+    rating: 5,
+    text: "Incredible villa in Santorini. The infinity pool and the service were top-notch. Highly recommend for a luxury stay."
+  }
+];
+
 export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900">
@@ -90,11 +111,11 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-6xl">
-              Find your next <span className="text-indigo-600">adventure</span>
+            <h1 className="text-5xl font-black tracking-tight text-zinc-900 sm:text-7xl">
+              Find Your Perfect Stay Anywhere
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-600">
-              Discover unique places to stay, from cozy cabins in the mountains to luxury villas by the sea.
+              Book unique homes, apartments, and villas at the best prices.
             </p>
           </motion.div>
 
@@ -200,6 +221,38 @@ export default function App() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="bg-zinc-50 py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900 mb-12">What Our Guests Say</h2>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {REVIEWS.map((review) => (
+              <motion.div
+                key={review.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="rounded-2xl bg-white p-8 shadow-sm border border-zinc-100 text-left"
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <span key={i} className="text-yellow-400">⭐</span>
+                  ))}
+                </div>
+                <p className="text-zinc-600 italic mb-6">"{review.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                    {review.name.charAt(0)}
+                  </div>
+                  <span className="font-bold text-zinc-900">{review.name}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
