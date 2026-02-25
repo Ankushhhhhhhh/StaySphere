@@ -16,7 +16,8 @@ const PROPERTIES = [
     rating: 4.98,
     reviews: 124,
     image: "https://picsum.photos/seed/iceland/800/600",
-    category: "Cabins"
+    category: "Cabins",
+    isSuperhost: true
   },
   {
     id: 2,
@@ -26,7 +27,8 @@ const PROPERTIES = [
     rating: 4.92,
     reviews: 89,
     image: "https://picsum.photos/seed/desert/800/600",
-    category: "Apartments"
+    category: "Apartments",
+    isSuperhost: false
   },
   {
     id: 3,
@@ -36,7 +38,8 @@ const PROPERTIES = [
     rating: 5.0,
     reviews: 56,
     image: "https://picsum.photos/seed/greece/800/600",
-    category: "Villas"
+    category: "Villas",
+    isSuperhost: true
   },
   {
     id: 4,
@@ -46,7 +49,8 @@ const PROPERTIES = [
     rating: 4.85,
     reviews: 210,
     image: "https://picsum.photos/seed/bali/800/600",
-    category: "Beach Houses"
+    category: "Beach Houses",
+    isSuperhost: false
   }
 ];
 
@@ -68,6 +72,7 @@ interface Property {
   reviews: number;
   image: string;
   category: string;
+  isSuperhost: boolean;
 }
 
 function PropertyCard({ property }: any) {
@@ -89,6 +94,11 @@ function PropertyCard({ property }: any) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           referrerPolicy="no-referrer"
         />
+        {property.isSuperhost && (
+          <div className="absolute top-4 left-4 rounded-md bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-900 shadow-sm">
+            Superhost
+          </div>
+        )}
         <button 
           onClick={(e) => {
             e.stopPropagation();
