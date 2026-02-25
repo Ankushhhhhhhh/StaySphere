@@ -1,0 +1,250 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Search, MapPin, Calendar, Users, Star, Heart, Menu, Globe } from 'lucide-react';
+import { motion } from 'motion/react';
+
+const PROPERTIES = [
+  {
+    id: 1,
+    title: "Eco-Luxury Glass Cabin",
+    location: "Reykjavík, Iceland",
+    price: 450,
+    rating: 4.98,
+    reviews: 124,
+    image: "https://picsum.photos/seed/iceland/800/600",
+    category: "Unique Stays"
+  },
+  {
+    id: 2,
+    title: "Modern Desert Oasis",
+    location: "Joshua Tree, California",
+    price: 320,
+    rating: 4.92,
+    reviews: 89,
+    image: "https://picsum.photos/seed/desert/800/600",
+    category: "Desert"
+  },
+  {
+    id: 3,
+    title: "Cliffside Infinity Villa",
+    location: "Santorini, Greece",
+    price: 850,
+    rating: 5.0,
+    reviews: 56,
+    image: "https://picsum.photos/seed/greece/800/600",
+    category: "Beachfront"
+  },
+  {
+    id: 4,
+    title: "Heritage Bamboo House",
+    location: "Bali, Indonesia",
+    price: 180,
+    rating: 4.85,
+    reviews: 210,
+    image: "https://picsum.photos/seed/bali/800/600",
+    category: "Tropical"
+  }
+];
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-white font-sans text-zinc-900">
+      {/* Navbar */}
+      <nav className="sticky top-0 z-50 border-b border-zinc-100 bg-white/80 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white">
+              <Globe size={24} />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-zinc-900">StaySphere</span>
+          </div>
+          
+          <div className="hidden items-center gap-8 md:flex">
+            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600">Explore</a>
+            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600">Stays</a>
+            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600">Experiences</a>
+            <a href="#" className="text-sm font-medium text-zinc-600 hover:text-indigo-600">Online Experiences</a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button className="hidden text-sm font-medium text-zinc-600 hover:text-indigo-600 lg:block">
+              Become a host
+            </button>
+            <div className="flex items-center gap-2 rounded-full border border-zinc-200 p-1 pl-3 hover:shadow-md transition-shadow cursor-pointer">
+              <Menu size={18} className="text-zinc-600" />
+              <div className="h-8 w-8 rounded-full bg-zinc-200" />
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-16 pb-24 sm:pt-24 sm:pb-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-6xl">
+              Find your next <span className="text-indigo-600">adventure</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-600">
+              Discover unique places to stay, from cozy cabins in the mountains to luxury villas by the sea.
+            </p>
+          </motion.div>
+
+          {/* Search Bar */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mx-auto mt-12 max-w-4xl"
+          >
+            <div className="flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl sm:flex-row sm:items-center">
+              <div className="flex flex-1 items-center gap-3 border-b border-zinc-100 p-4 sm:border-b-0 sm:border-r">
+                <MapPin size={20} className="text-indigo-600" />
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Location</span>
+                  <input 
+                    type="text" 
+                    placeholder="Where are you going?" 
+                    className="bg-transparent text-sm font-medium outline-none placeholder:text-zinc-400"
+                  />
+                </div>
+              </div>
+              
+              <div className="flex flex-1 items-center gap-3 border-b border-zinc-100 p-4 sm:border-b-0 sm:border-r">
+                <Calendar size={20} className="text-indigo-600" />
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Check in</span>
+                  <input 
+                    type="text" 
+                    placeholder="Add dates" 
+                    className="bg-transparent text-sm font-medium outline-none placeholder:text-zinc-400"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-1 items-center gap-3 p-4">
+                <Users size={20} className="text-indigo-600" />
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Guests</span>
+                  <input 
+                    type="text" 
+                    placeholder="Add guests" 
+                    className="bg-transparent text-sm font-medium outline-none placeholder:text-zinc-400"
+                  />
+                </div>
+              </div>
+
+              <div className="p-2">
+                <button className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 text-sm font-bold text-white transition-colors hover:bg-indigo-700 sm:w-auto">
+                  <Search size={18} />
+                  Search
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Property Grid */}
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mb-8 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-zinc-900">Featured Stays</h2>
+          <button className="text-sm font-semibold text-indigo-600 hover:underline">View all</button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {PROPERTIES.map((property, index) => (
+            <motion.div
+              key={property.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group cursor-pointer"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-100">
+                <img 
+                  src={property.image} 
+                  alt={property.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <button className="absolute top-4 right-4 rounded-full bg-white/20 p-2 text-white backdrop-blur-md transition-colors hover:bg-white/40">
+                  <Heart size={20} />
+                </button>
+                <div className="absolute bottom-4 left-4 rounded-lg bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-900 backdrop-blur-sm">
+                  {property.category}
+                </div>
+              </div>
+              
+              <div className="mt-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-zinc-900">{property.title}</h3>
+                  <div className="flex items-center gap-1">
+                    <Star size={14} className="fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">{property.rating}</span>
+                  </div>
+                </div>
+                <p className="text-sm text-zinc-500">{property.location}</p>
+                <div className="mt-2 flex items-baseline gap-1">
+                  <span className="text-lg font-bold text-zinc-900">${property.price}</span>
+                  <span className="text-sm text-zinc-500">/ night</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-24 border-t border-zinc-100 bg-zinc-50 py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900">Support</h4>
+              <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                <li><a href="#" className="hover:text-indigo-600">Help Center</a></li>
+                <li><a href="#" className="hover:text-indigo-600">AirCover</a></li>
+                <li><a href="#" className="hover:text-indigo-600">Safety information</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900">Community</h4>
+              <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                <li><a href="#" className="hover:text-indigo-600">StaySphere.org</a></li>
+                <li><a href="#" className="hover:text-indigo-600">Support Afghan refugees</a></li>
+                <li><a href="#" className="hover:text-indigo-600">Combating discrimination</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900">Hosting</h4>
+              <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                <li><a href="#" className="hover:text-indigo-600">Try hosting</a></li>
+                <li><a href="#" className="hover:text-indigo-600">AirCover for Hosts</a></li>
+                <li><a href="#" className="hover:text-indigo-600">Explore hosting resources</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900">StaySphere</h4>
+              <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                <li><a href="#" className="hover:text-indigo-600">Newsroom</a></li>
+                <li><a href="#" className="hover:text-indigo-600">Learn about new features</a></li>
+                <li><a href="#" className="hover:text-indigo-600">Careers</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-12 border-t border-zinc-200 pt-8 text-center text-sm text-zinc-500">
+            © 2024 StaySphere Inc. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
