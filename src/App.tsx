@@ -26,7 +26,7 @@ const PROPERTIES = [
     price: 320,
     rating: 4.92,
     reviews: 89,
-    image: "https://picsum.photos/seed/desert/800/600",
+    image: "/house2.png",
     category: "Apartments",
     isSuperhost: false
   },
@@ -37,7 +37,7 @@ const PROPERTIES = [
     price: 850,
     rating: 5.0,
     reviews: 56,
-    image: "https://picsum.photos/seed/greece/800/600",
+    image: "/house3.png",
     category: "Villas",
     isSuperhost: true
   },
@@ -48,7 +48,7 @@ const PROPERTIES = [
     price: 180,
     rating: 4.85,
     reviews: 210,
-    image: "https://picsum.photos/seed/bali/800/600",
+    image: "/house4.png",
     category: "Beach Houses",
     isSuperhost: false
   }
