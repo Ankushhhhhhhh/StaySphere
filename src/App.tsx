@@ -53,7 +53,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-100 bg-white/80 backdrop-blur-md">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white">
@@ -82,7 +82,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-24 sm:pt-24 sm:pb-32">
+      <section className="relative overflow-hidden pt-24 pb-24 sm:pt-32 sm:pb-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
