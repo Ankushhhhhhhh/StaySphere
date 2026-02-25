@@ -15,7 +15,7 @@ const PROPERTIES = [
     price: 450,
     rating: 4.98,
     reviews: 124,
-    image: "/house1.png",
+    image: "/properties/house1.png",
     category: "Cabins",
     isSuperhost: true
   },
