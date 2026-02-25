@@ -4,65 +4,8 @@
  */
 
 import { useState } from 'react';
-import { Search, MapPin, Calendar, Users, Star, Heart, Menu, Globe } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Star, Heart, Menu, Globe, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-
-const PROPERTIES = [
-  {
-    id: 1,
-    title: "Eco-Luxury Glass Cabin",
-    location: "Reykjavík, Iceland",
-    price: 450,
-    rating: 4.98,
-    reviews: 124,
-    image: "/house1.png",
-    category: "Cabins",
-    isSuperhost: true,
-    isFeatured: true
-  },
-  {
-    id: 2,
-    title: "Modern Desert Oasis",
-    location: "Joshua Tree, California",
-    price: 320,
-    rating: 4.92,
-    reviews: 89,
-    image: "https://picsum.photos/seed/desert/800/600",
-    category: "Apartments",
-    isSuperhost: false
-  },
-  {
-    id: 3,
-    title: "Cliffside Infinity Villa",
-    location: "Santorini, Greece",
-    price: 850,
-    rating: 5.0,
-    reviews: 56,
-    image: "https://picsum.photos/seed/greece/800/600",
-    category: "Villas",
-    isSuperhost: true
-  },
-  {
-    id: 4,
-    title: "Heritage Bamboo House",
-    location: "Bali, Indonesia",
-    price: 180,
-    rating: 4.85,
-    reviews: 210,
-    image: "https://picsum.photos/seed/bali/800/600",
-    category: "Beach Houses",
-    isSuperhost: false
-  }
-];
-
-const CATEGORIES = ["All", "Apartments", "Villas", "Cabins", "Beach Houses"];
-
-const LOCATIONS = [
-  { name: "Mumbai", image: "https://picsum.photos/seed/mumbai/800/800" },
-  { name: "Goa", image: "https://picsum.photos/seed/goa/800/800" },
-  { name: "Manali", image: "https://picsum.photos/seed/manali/800/800" },
-  { name: "Dubai", image: "https://picsum.photos/seed/dubai/800/800" }
-];
 
 interface Property {
   id: number;
@@ -75,9 +18,71 @@ interface Property {
   category: string;
   isSuperhost: boolean;
   isFeatured?: boolean;
+  description: string;
 }
 
-function PropertyCard({ property }: any) {
+const PROPERTIES: Property[] = [
+  {
+    id: 1,
+    title: "Eco-Luxury Glass Cabin",
+    location: "Reykjavík, Iceland",
+    price: 450,
+    rating: 4.98,
+    reviews: 124,
+    image: "/house1.png",
+    category: "Cabins",
+    isSuperhost: true,
+    isFeatured: true,
+    description: "Experience the northern lights from the comfort of this glass-walled cabin. Nestled in the Icelandic wilderness, this eco-friendly stay offers unparalleled views of the stars and surrounding mountains. Features a minimalist interior with high-end amenities."
+  },
+  {
+    id: 2,
+    title: "Modern Desert Oasis",
+    location: "Joshua Tree, California",
+    price: 320,
+    rating: 4.92,
+    reviews: 89,
+    image: "https://picsum.photos/seed/desert/800/600",
+    category: "Apartments",
+    isSuperhost: false,
+    description: "A stunning architectural masterpiece in the heart of the Mojave Desert. This modern home blends seamlessly with the rocky landscape, offering a peaceful retreat with a private pool and outdoor fire pit."
+  },
+  {
+    id: 3,
+    title: "Cliffside Infinity Villa",
+    location: "Santorini, Greece",
+    price: 850,
+    rating: 5.0,
+    reviews: 56,
+    image: "https://picsum.photos/seed/greece/800/600",
+    category: "Villas",
+    isSuperhost: true,
+    description: "Perched on the cliffs of Oia, this luxury villa features a private infinity pool overlooking the Aegean Sea. Traditional Cycladic architecture meets modern luxury for an unforgettable Mediterranean getaway."
+  },
+  {
+    id: 4,
+    title: "Heritage Bamboo House",
+    location: "Bali, Indonesia",
+    price: 180,
+    rating: 4.85,
+    reviews: 210,
+    image: "https://picsum.photos/seed/bali/800/600",
+    category: "Beach Houses",
+    isSuperhost: false,
+    description: "An eco-conscious bamboo structure nestled in the lush jungles of Ubud. Experience authentic Balinese living with open-air spaces, a private garden, and a nearby river."
+  }
+];
+
+const CATEGORIES = ["All", "Apartments", "Villas", "Cabins", "Beach Houses"];
+
+const LOCATIONS = [
+  { name: "Mumbai", image: "https://picsum.photos/seed/mumbai/800/800" },
+  { name: "Goa", image: "https://picsum.photos/seed/goa/800/800" },
+  { name: "Manali", image: "https://picsum.photos/seed/manali/800/800" },
+  { name: "Dubai", image: "https://picsum.photos/seed/dubai/800/800" }
+];
+
+function PropertyCard({ property, onClick }: any) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
@@ -88,6 +93,7 @@ function PropertyCard({ property }: any) {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
       className="group cursor-pointer"
+      onClick={onClick}
     >
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-100">
         <img 
@@ -198,13 +204,94 @@ const REVIEWS = [
 
 export default function App() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
-  const filteredProperties = activeFilter === "All" 
-    ? PROPERTIES 
-    : PROPERTIES.filter(p => p.category === activeFilter);
+  const filteredProperties = PROPERTIES.filter(p => {
+    const matchesCategory = activeFilter === "All" || p.category === activeFilter;
+    const matchesLocation = p.location.toLowerCase().includes(appliedSearch.toLowerCase());
+    return matchesCategory && matchesLocation;
+  });
 
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900">
+      {/* Property Detail Modal */}
+      <AnimatePresence>
+        {selectedProperty && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProperty(null)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-white shadow-2xl"
+            >
+              <button
+                onClick={() => setSelectedProperty(null)}
+                className="absolute top-4 right-4 z-10 rounded-full bg-white/80 p-2 text-zinc-900 shadow-md backdrop-blur-md transition-transform hover:scale-110 active:scale-95"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="flex flex-col md:flex-row">
+                <div className="h-64 w-full md:h-auto md:w-1/2">
+                  <img
+                    src={selectedProperty.image}
+                    alt={selectedProperty.title}
+                    className="h-full w-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6 sm:p-8">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+                      {selectedProperty.category}
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <Star size={14} className="fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm font-bold">{selectedProperty.rating}</span>
+                    </div>
+                  </div>
+                  
+                  <h2 className="mt-2 text-2xl font-black tracking-tight text-zinc-900 sm:text-3xl">
+                    {selectedProperty.title}
+                  </h2>
+                  <p className="mt-1 text-sm text-zinc-500">{selectedProperty.location}</p>
+                  
+                  <div className="mt-6">
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">About this stay</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                      {selectedProperty.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto pt-8">
+                    <div className="flex items-center justify-between border-t border-zinc-100 pt-6">
+                      <div className="flex flex-col">
+                        <span className="text-2xl font-black text-zinc-900">${selectedProperty.price}</span>
+                        <span className="text-xs text-zinc-500">per night</span>
+                      </div>
+                      <button
+                        onClick={() => alert("Booking request sent!")}
+                        className="rounded-xl bg-indigo-600 px-8 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-200 transition-all hover:bg-indigo-700 hover:shadow-indigo-300 active:scale-95"
+                      >
+                        Reserve Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -266,6 +353,8 @@ export default function App() {
                   <input 
                     type="text" 
                     placeholder="Where are you going?" 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="bg-transparent text-sm font-medium outline-none placeholder:text-zinc-400"
                   />
                 </div>
@@ -296,7 +385,10 @@ export default function App() {
               </div>
 
               <div className="p-2">
-                <button className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 text-sm font-bold text-white transition-colors hover:bg-indigo-700 sm:w-auto">
+                <button 
+                  onClick={() => setAppliedSearch(searchQuery)}
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 text-sm font-bold text-white transition-colors hover:bg-indigo-700 sm:w-auto"
+                >
                   <Search size={18} />
                   Search
                 </button>
@@ -334,9 +426,37 @@ export default function App() {
           className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
+            {filteredProperties.length > 0 ? (
+              filteredProperties.map((property) => (
+                <PropertyCard 
+                  key={property.id} 
+                  property={property} 
+                  onClick={() => setSelectedProperty(property)}
+                />
+              ))
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="col-span-full py-20 text-center"
+              >
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 text-zinc-400">
+                  <Search size={32} />
+                </div>
+                <h3 className="text-xl font-bold text-zinc-900">No properties found</h3>
+                <p className="mt-2 text-zinc-500">Try adjusting your search or filters to find what you're looking for.</p>
+                <button 
+                  onClick={() => {
+                    setSearchQuery("");
+                    setAppliedSearch("");
+                    setActiveFilter("All");
+                  }}
+                  className="mt-6 text-sm font-bold text-indigo-600 hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </motion.div>
+            )}
           </AnimatePresence>
         </motion.div>
       </section>
