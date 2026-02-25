@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState } from 'react';
 import { Search, MapPin, Calendar, Users, Star, Heart, Menu, Globe } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 
 const PROPERTIES = [
   {
@@ -15,7 +16,7 @@ const PROPERTIES = [
     rating: 4.98,
     reviews: 124,
     image: "https://picsum.photos/seed/iceland/800/600",
-    category: "Unique Stays"
+    category: "Cabins"
   },
   {
     id: 2,
@@ -25,7 +26,7 @@ const PROPERTIES = [
     rating: 4.92,
     reviews: 89,
     image: "https://picsum.photos/seed/desert/800/600",
-    category: "Desert"
+    category: "Apartments"
   },
   {
     id: 3,
@@ -35,7 +36,7 @@ const PROPERTIES = [
     rating: 5.0,
     reviews: 56,
     image: "https://picsum.photos/seed/greece/800/600",
-    category: "Beachfront"
+    category: "Villas"
   },
   {
     id: 4,
@@ -45,9 +46,77 @@ const PROPERTIES = [
     rating: 4.85,
     reviews: 210,
     image: "https://picsum.photos/seed/bali/800/600",
-    category: "Tropical"
+    category: "Beach Houses"
   }
 ];
+
+const CATEGORIES = ["All", "Apartments", "Villas", "Cabins", "Beach Houses"];
+
+interface Property {
+  id: number;
+  title: string;
+  location: string;
+  price: number;
+  rating: number;
+  reviews: number;
+  image: string;
+  category: string;
+}
+
+function PropertyCard({ property }: any) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+      className="group cursor-pointer"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-100">
+        <img 
+          src={property.image} 
+          alt={property.title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          referrerPolicy="no-referrer"
+        />
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsFavorite(!isFavorite);
+          }}
+          className={`absolute top-4 right-4 rounded-full p-2 backdrop-blur-md transition-all duration-300 ${
+            isFavorite 
+              ? "bg-white text-red-500 shadow-lg scale-110" 
+              : "bg-white/20 text-white hover:bg-white/40"
+          }`}
+        >
+          <Heart size={20} fill={isFavorite ? "currentColor" : "none"} />
+        </button>
+        <div className="absolute bottom-4 left-4 rounded-lg bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-900 backdrop-blur-sm">
+          {property.category}
+        </div>
+      </div>
+      
+      <div className="mt-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-base font-bold text-zinc-900">{property.title}</h3>
+          <div className="flex items-center gap-1">
+            <Star size={14} className="fill-yellow-400 text-yellow-400" />
+            <span className="text-sm font-medium">{property.rating}</span>
+          </div>
+        </div>
+        <p className="text-sm text-zinc-500">{property.location}</p>
+        <div className="mt-2 flex items-baseline gap-1">
+          <span className="text-lg font-bold text-zinc-900">${property.price}</span>
+          <span className="text-sm text-zinc-500">/ night</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 const REVIEWS = [
   {
@@ -71,6 +140,12 @@ const REVIEWS = [
 ];
 
 export default function App() {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filteredProperties = activeFilter === "All" 
+    ? PROPERTIES 
+    : PROPERTIES.filter(p => p.category === activeFilter);
+
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900">
       {/* Navbar */}
@@ -176,52 +251,37 @@ export default function App() {
 
       {/* Property Grid */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-2xl font-bold text-zinc-900">Featured Stays</h2>
-          <button className="text-sm font-semibold text-indigo-600 hover:underline">View all</button>
+          
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveFilter(category)}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                  activeFilter === category
+                    ? "bg-indigo-600 text-white shadow-md"
+                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {PROPERTIES.map((property, index) => (
-            <motion.div
-              key={property.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-100">
-                <img 
-                  src={property.image} 
-                  alt={property.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <button className="absolute top-4 right-4 rounded-full bg-white/20 p-2 text-white backdrop-blur-md transition-colors hover:bg-white/40">
-                  <Heart size={20} />
-                </button>
-                <div className="absolute bottom-4 left-4 rounded-lg bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-900 backdrop-blur-sm">
-                  {property.category}
-                </div>
-              </div>
-              
-              <div className="mt-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-zinc-900">{property.title}</h3>
-                  <div className="flex items-center gap-1">
-                    <Star size={14} className="fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">{property.rating}</span>
-                  </div>
-                </div>
-                <p className="text-sm text-zinc-500">{property.location}</p>
-                <div className="mt-2 flex items-baseline gap-1">
-                  <span className="text-lg font-bold text-zinc-900">${property.price}</span>
-                  <span className="text-sm text-zinc-500">/ night</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div 
+          layout
+          className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProperties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </section>
 
       {/* Reviews Section */}
