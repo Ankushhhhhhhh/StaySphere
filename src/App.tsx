@@ -15,7 +15,7 @@ const PROPERTIES = [
     price: 450,
     rating: 4.98,
     reviews: 124,
-    image: "https://picsum.photos/seed/iceland/800/600",
+    image: "/house1.png",
     category: "Cabins",
     isSuperhost: true
   },
