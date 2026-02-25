@@ -52,6 +52,13 @@ const PROPERTIES = [
 
 const CATEGORIES = ["All", "Apartments", "Villas", "Cabins", "Beach Houses"];
 
+const LOCATIONS = [
+  { name: "Mumbai", image: "https://picsum.photos/seed/mumbai/800/800" },
+  { name: "Goa", image: "https://picsum.photos/seed/goa/800/800" },
+  { name: "Manali", image: "https://picsum.photos/seed/manali/800/800" },
+  { name: "Dubai", image: "https://picsum.photos/seed/dubai/800/800" }
+];
+
 interface Property {
   id: number;
   title: string;
@@ -282,6 +289,34 @@ export default function App() {
             ))}
           </AnimatePresence>
         </motion.div>
+      </section>
+
+      {/* Explore by Location Section */}
+      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-zinc-900 mb-12">Explore by Location</h2>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {LOCATIONS.map((location, index) => (
+            <motion.div
+              key={location.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative h-80 overflow-hidden rounded-3xl cursor-pointer"
+            >
+              <img 
+                src={location.image} 
+                alt={location.name}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/50" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h3 className="text-3xl font-bold text-white tracking-tight">{location.name}</h3>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Reviews Section */}
