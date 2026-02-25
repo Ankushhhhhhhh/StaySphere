@@ -121,7 +121,7 @@ function PropertyCard({ property, onClick, darkMode }: any) {
       className="group cursor-pointer"
       onClick={onClick}
     >
-      <div className={`relative aspect-[4/3] overflow-hidden rounded-2xl transition-colors ${darkMode ? 'bg-zinc-900' : 'bg-beige/50'}`}>
+      <div className={`relative aspect-[4/3] overflow-hidden rounded-3xl transition-colors ${darkMode ? 'bg-zinc-900' : 'bg-beige/50'}`}>
         <img 
           src={property.image} 
           alt={property.title}
@@ -424,7 +424,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-32 sm:pt-48 sm:pb-48">
+      <section className="relative overflow-hidden pt-40 pb-40 sm:pt-56 sm:pb-56">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -501,8 +501,8 @@ export default function App() {
       </section>
 
       {/* Property Grid */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <section className="mx-auto max-w-7xl px-4 py-40 sm:px-6 lg:px-8">
+        <div className="mb-16 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col gap-6">
             <h2 className={`text-4xl font-display font-bold tracking-tight ${darkMode ? 'text-white' : 'text-ink'}`}>Featured Stays</h2>
             
@@ -555,7 +555,7 @@ export default function App() {
 
         <motion.div 
           layout
-          className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4"
         >
           <AnimatePresence mode="popLayout">
             {filteredProperties.length > 0 ? (
@@ -596,9 +596,9 @@ export default function App() {
       </section>
 
       {/* Explore by Location Section */}
-      <section className="mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
-        <h2 className={`text-4xl font-display font-bold tracking-tight mb-16 ${darkMode ? 'text-white' : 'text-ink'}`}>Explore by Location</h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mx-auto max-w-7xl px-4 py-48 sm:px-6 lg:px-8">
+        <h2 className={`text-4xl font-display font-bold tracking-tight mb-20 ${darkMode ? 'text-white' : 'text-ink'}`}>Explore by Location</h2>
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {LOCATIONS.map((location, index) => (
             <motion.div
               key={location.name}
@@ -624,10 +624,10 @@ export default function App() {
       </section>
 
       {/* Reviews Section */}
-      <section className={`py-32 transition-colors ${darkMode ? 'bg-zinc-900/50' : 'bg-beige/20'}`}>
+      <section className={`py-48 transition-colors ${darkMode ? 'bg-zinc-900/50' : 'bg-beige/20'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className={`text-4xl font-display font-bold tracking-tight mb-16 ${darkMode ? 'text-white' : 'text-ink'}`}>What Our Guests Say</h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <h2 className={`text-4xl font-display font-bold tracking-tight mb-20 ${darkMode ? 'text-white' : 'text-ink'}`}>What Our Guests Say</h2>
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {REVIEWS.map((review) => (
               <motion.div
                 key={review.id}
@@ -657,9 +657,9 @@ export default function App() {
 
       {/* Recently Viewed Section */}
       {recentlyViewed.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 border-t border-beige dark:border-zinc-800 mt-24">
-          <h2 className={`text-3xl font-display font-bold tracking-tight mb-12 ${darkMode ? 'text-white' : 'text-ink'}`}>Recently Viewed</h2>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="mx-auto max-w-7xl px-4 py-40 sm:px-6 lg:px-8 border-t border-beige dark:border-zinc-800 mt-40">
+          <h2 className={`text-3xl font-display font-bold tracking-tight mb-16 ${darkMode ? 'text-white' : 'text-ink'}`}>Recently Viewed</h2>
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {recentlyViewed.map((property) => (
               <PropertyCard 
                 key={`recent-${property.id}`} 
